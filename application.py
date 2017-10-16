@@ -46,7 +46,7 @@ if not os.environ.get("MONGO_URI"):
 
 username_re = re.compile("^[A-Za-z][A-Za-z_\-\d]+$")
 
-jwt_secret = 'hello'
+jwt_secret = create_salt()
 
 mongo_client = MongoClient(os.environ.get("MONGO_URI"))
 db = mongo_client.mnesis
@@ -69,10 +69,14 @@ def signup():
         return error('no username', 400)
     if not username_re.match(username):
         return error('invalid username', 400)
+    if len(username) > 50:
+        return error('username too long', 400)
     if not password:
         return error('no password', 400)
     if len(password) < 6:
         return error('password too short', 400)
+    if len(password) > 50:
+        return error('password too long', 400)
     try:
         doc = coll_users.find_one({'username': username})
         if doc:
