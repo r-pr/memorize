@@ -46,7 +46,7 @@ if not os.environ.get("MONGO_URI"):
 
 username_re = re.compile("^[A-Za-z][A-Za-z_\-\d]+$")
 
-jwt_secret = create_salt()
+jwt_secret = "foo_bar" #create_salt()
 
 mongo_client = MongoClient(os.environ.get("MONGO_URI"))
 db = mongo_client.mnesis
