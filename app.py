@@ -3,6 +3,7 @@
 # then deploy to heroku
 #
 
+import copy
 import os
 import re
 import datetime
@@ -324,26 +325,24 @@ def update_or_delete_entry(dict_id, entry_id, *args, **kwargs):
             return error('internal server error', 500)
 
     elif request.method == 'PUT':
-        # update entry
-        if not set(request.form).issubset(dic['entryKeys']['all']):
+        # update entry, allow adding counter field, even if it's not
+        # specified in dictionary scheme
+        all_keys = copy.copy(dic['entryKeys']['all']);
+        all_keys.append('counter');
+        if not set(request.form).issubset(all_keys):
             return error('entry keys do not match dictionary scheme', 400)
-        if not len(set(request.form) & set(dic['entryKeys']['training'])):
-            return error(
-                'at least one entry key must be listed in entryKeys.training',
-                400
-            )
-        if not len(set(request.form) & set(dic['entryKeys']['hint'])):
-            return error(
-                'at least one entry key must be listed in entryKeys.hint',
-                400
-            )
         entry = {'dict_id': dic_obj_id}
         for field in request.form:
             entry[field] = request.form[field]
+        if entry.get('counter'):
+            try:
+                entry['counter'] = int(entry['counter'])
+            except:
+                entry['counter'] = 0
         try:
             result = coll_entries.update_one(
                 {'_id': entry_obj_id, 'dict_id': dic_obj_id},
-                {'$set': request.form}
+                {'$set': entry}
             )
             if result.matched_count:
                 return jsonify({'status': 'ok'})
