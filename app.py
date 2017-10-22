@@ -148,24 +148,26 @@ def dictionaries(*args, **kwargs):
 @token_required
 def create_dictionary(param, *args, **kwargs):
     user_id = ObjectId(kwargs['token']['id'])
-    ent_all = request.form.get('ent_all')
-    if not ent_all:
-        return error('ent_all is required', 400)
-    ent_training = request.form.get('ent_training')
-    if not ent_training:
-        return error('ent_training is required', 400)
-    ent_hint = request.form.get('ent_hint')
-    if not ent_hint:
-        return error('ent_hint is required', 400)
-    ent_all = str_to_set(ent_all)
-    ent_training = str_to_set(ent_training)
-    ent_hint = str_to_set(ent_hint)
-    if not ent_training.issubset(ent_all):
-        return error('ent_training must be a subset of ent_all', 400)
-    if not ent_hint.issubset(ent_all):
-        return error('ent_hint must be a subset of ent_all', 400)
-    if len(ent_hint & ent_training):
-        return error('common elements in ent_training and ent_hint', 400)
+
+    if request.method != 'DELETE':
+        ent_all = request.form.get('ent_all')
+        if not ent_all:
+            return error('ent_all is required', 400)
+        ent_training = request.form.get('ent_training')
+        if not ent_training:
+            return error('ent_training is required', 400)
+        ent_hint = request.form.get('ent_hint')
+        if not ent_hint:
+            return error('ent_hint is required', 400)
+        ent_all = str_to_set(ent_all)
+        ent_training = str_to_set(ent_training)
+        ent_hint = str_to_set(ent_hint)
+        if not ent_training.issubset(ent_all):
+            return error('ent_training must be a subset of ent_all', 400)
+        if not ent_hint.issubset(ent_all):
+            return error('ent_hint must be a subset of ent_all', 400)
+        if len(ent_hint & ent_training):
+            return error('common elements in ent_training and ent_hint', 400)
 
     if request.method == 'POST':
         # create dictionary
