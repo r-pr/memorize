@@ -1,26 +1,27 @@
-import { 
-    loginOk, loginErr, logout as _logout, 
-    addDictionary as _addDictionary, 
+import {
+    loginOk, loginErr, logout as _logout,
+    addDictionary as _addDictionary,
     deleteDictionary as _deleteDictionary,
     addEntry as _addEntry,
     updateEntry as _updateEntry,
     deleteEntry as _deleteEntry,
-    error, 
-    receiveDictionaries,  receiveEntries, 
+    error,
+    receiveDictionaries,  receiveEntries,
     navDictionary, navDictionaries
 } from './actions';
 
 import fetch from 'isomorphic-fetch';
 
-//const BASE_URL = window.location.href;
-const BASE_URL = 'http://mnezis.herokuapp.com';
+const BASE_URL = window.location.href;
+console.log(BASE_URL);
+//const BASE_URL = 'http://mnezis.herokuapp.com/';
 
 var token = '';
 
 
 export function login(userName, password) {
     return dispatch => {
-        fetch(BASE_URL + '/login', {
+        fetch(BASE_URL + 'login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
@@ -38,7 +39,7 @@ export function login(userName, password) {
                             token = json.token;
                             console.log('gona fetch');
 
-                            fetch(BASE_URL + '/dictionaries', {
+                            fetch(BASE_URL + 'dictionaries', {
                                 method: 'GET',
                                 headers: {
                                     'Authorization': token
@@ -92,9 +93,8 @@ export function logout() {
 }
 
 export function signup(userName, password) {
-    console.log('remote actions::signup', userName, password);
     return dispatch => {
-        fetch(BASE_URL + '/signup', {
+        fetch(BASE_URL + 'signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
@@ -127,7 +127,7 @@ export function signup(userName, password) {
 
 export function addDictionary(dict) {
     return dispatch => {
-        fetch(BASE_URL + '/dictionaries/' + dict.name, {
+        fetch(BASE_URL + 'dictionaries/' + dict.name, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -165,7 +165,6 @@ export function addDictionary(dict) {
 }
 
 export function addEntry(dictId, newEntry){
-//body: 'username=' + encodeURIComponent(userName) + '&password=' + encodeURIComponent(password)
     let body = '';
     Object.keys(newEntry).forEach(key=>{
         if (key === 'dictId'){
@@ -179,7 +178,7 @@ export function addEntry(dictId, newEntry){
     console.log(body);
 
     return dispatch=>{
-        fetch(`${BASE_URL}/dictionaries/${dictId}/entries`, {
+        fetch(`${BASE_URL}dictionaries/${dictId}/entries`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -225,7 +224,7 @@ export function updateEntry(dictId, entry){
     });
     console.log(body);
     return dispatch=>{
-        fetch(`${BASE_URL}/dictionaries/${dictId}/entries/${entry._id}`, {
+        fetch(`${BASE_URL}dictionaries/${dictId}/entries/${entry._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -258,7 +257,7 @@ export function updateEntry(dictId, entry){
 
 export function fetchEntriesAndNavigate(dictId) {
     return dispatch=>{
-        fetch(`${BASE_URL}/dictionaries/${dictId}/entries`, {
+        fetch(`${BASE_URL}dictionaries/${dictId}/entries`, {
             method: 'GET',
             headers: {
                 'Authorization': token
@@ -295,7 +294,7 @@ export function fetchEntriesAndNavigate(dictId) {
 
 export function deleteDictionary(dictId){
     return dispatch=>{
-        fetch(`${BASE_URL}/dictionaries/${dictId}`, {
+        fetch(`${BASE_URL}dictionaries/${dictId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': token
@@ -330,9 +329,8 @@ export function deleteDictionary(dictId){
 
 
 export function deleteEntry(dictId, entryId){
-    console.log('remote::delete entry', dictId, entryId);
     return dispatch=>{
-        fetch(`${BASE_URL}/dictionaries/${dictId}/entries/${entryId}`, {
+        fetch(`${BASE_URL}dictionaries/${dictId}/entries/${entryId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': token

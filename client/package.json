@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public",
-    "build": "webpack -p"
+    "build": "webpack -p --config=webpack.config.js"
   },
   "repository": {
     "type": "git",
