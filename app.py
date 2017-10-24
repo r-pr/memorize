@@ -40,7 +40,7 @@ def error500():
     return jsonify({'error': 'internal server error'}), 500
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 
 if not os.environ.get("MONGO_URI"):
     raise RuntimeError("MONGO_URI env variable not set")

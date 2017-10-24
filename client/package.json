@@ -1,0 +1,41 @@
+{
+  "name": "mnesis",
+  "version": "0.0.1",
+  "description": "A memory training service",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public",
+    "build": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r-pr/mnesis.git"
+  },
+  "author": "Ruslan Prokopenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/r-pr/mnesis/issues"
+  },
+  "homepage": "https://github.com/r-pr/mnesis#readme",
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "chai": "^3.5.0",
+    "deep-freeze": "0.0.1",
+    "eslint": "^4.6.1",
+    "eslint-plugin-react": "^7.3.0",
+    "isomorphic-fetch": "^2.2.1",
+    "prop-types": "^15.5.10",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
