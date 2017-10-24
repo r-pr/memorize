@@ -9,7 +9,7 @@ import re
 import datetime
 
 from bson import ObjectId
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from functools import wraps
 from pymongo import MongoClient
 import jwt
@@ -40,7 +40,7 @@ def error500():
     return jsonify({'error': 'internal server error'}), 500
 
 
-app = Flask(__name__, static_folder='static', static_url_path='')
+app = Flask(__name__, static_folder='public', static_url_path='')
 
 if not os.environ.get("MONGO_URI"):
     raise RuntimeError("MONGO_URI env variable not set")
@@ -58,7 +58,7 @@ coll_entries = db.entries
 
 @app.route("/")
 def index():
-    return "Coming soon..."
+    return send_from_directory('public', 'index.html')
 
 
 @app.route("/signup", methods=["POST"])
