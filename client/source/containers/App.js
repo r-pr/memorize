@@ -103,7 +103,6 @@ class App extends React.Component {
 
     //Dictionary::save_entry button clicked
     onUpdateEntry(dictId, newEntry){
-        console.log('gona update entry', dictId, newEntry);
         this.props.dispatch(updateEntry(dictId, newEntry));
     }
 
@@ -114,7 +113,6 @@ class App extends React.Component {
     }
 
     onAddEntry(dictId, entry){
-        console.log(entry);
         const { dispatch } = this.props;
         dispatch(addEntry(dictId, entry));
     }
@@ -204,9 +202,7 @@ class App extends React.Component {
     }
 
     getActiveSection(){
-
         let currDictId = this.props.navigation.dictId;
-        console.log('gas', this.props.navigation.section);
         switch(this.props.navigation.section){
         case 'DICTIONARIES':
             return <Dictionaries
@@ -269,14 +265,13 @@ class App extends React.Component {
     }
 
     render(){
-        console.log(this.props);
         let currDictName = '';
         if (this.props.navigation.dictId){
             currDictName = this.props.dictionaries[this.props.navigation.dictId].name;
         }
 
-    	return <div className="container-fluid">
-  			<Header
+        return <div className="container-fluid">
+            <Header
                 userName={this.props.userName}
                 onLogout={this.onLogout.bind(this)}
             />
@@ -287,10 +282,10 @@ class App extends React.Component {
                 navDictId={this.props.navigation.dictId}
                 navDictName={currDictName}
             />
-  			<div className="row">
+            <div className="row">
                 { this.getActiveSection() }
-    		</div>
-  		</div>;
+            </div>
+        </div>;
     }
 }
 

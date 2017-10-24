@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class Breadcrumbs extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {};
     }
 
     getBreadcrumbs(){
@@ -16,42 +16,42 @@ class Breadcrumbs extends React.Component {
             >
                 Dictionaries
             </a>
-        </li>
+        </li>;
         switch(this.props.navSection){
-            case 'DICTIONARIES':
-                breadcrumbs.push(<li className="active" key={2}>
+        case 'DICTIONARIES':
+            breadcrumbs.push(<li className="active" key={2}>
                     Dictionaries
-                </li>);
-                return breadcrumbs;
-            case 'NEW_DICTIONARY':
-                breadcrumbs.push(inactiveDictsLi)
-                breadcrumbs.push(<li className="active" key={3}>New</li>)
-                return breadcrumbs;
-            case 'DICTIONARY':
-                breadcrumbs.push(inactiveDictsLi);
-                breadcrumbs.push(<li className="active" key={4}>{this.props.navDictName}</li>)
-                return breadcrumbs;
-            case 'NEW_ENTRY':
-                breadcrumbs.push(inactiveDictsLi);
-                breadcrumbs.push(<li key={2}>
-                    <a href="#" onClick={this.props.gotoDictionary.bind(null, this.props.navDictId)}>
-                        {this.props.navDictName}
-                    </a>
-                </li>);
-                breadcrumbs.push(<li className="active" key={3}>New Entry</li>);
-                return breadcrumbs;
-            case 'TRAINING':
-                breadcrumbs.push(inactiveDictsLi);
-                breadcrumbs.push(<li key={2}>
-                    <a href="#" onClick={this.props.gotoDictionary.bind(null, this.props.navDictId)}>
-                        {this.props.navDictName}
-                    </a>
-                </li>);
-                breadcrumbs.push(<li className="active" key={3}>Training</li>);
-                return breadcrumbs;
-            default: 
-                breadcrumbs.push(<li className="active" key={5}>Error: unknown position</li>);
-                return breadcrumbs;
+            </li>);
+            return breadcrumbs;
+        case 'NEW_DICTIONARY':
+            breadcrumbs.push(inactiveDictsLi);
+            breadcrumbs.push(<li className="active" key={3}>New</li>);
+            return breadcrumbs;
+        case 'DICTIONARY':
+            breadcrumbs.push(inactiveDictsLi);
+            breadcrumbs.push(<li className="active" key={4}>{this.props.navDictName}</li>);
+            return breadcrumbs;
+        case 'NEW_ENTRY':
+            breadcrumbs.push(inactiveDictsLi);
+            breadcrumbs.push(<li key={2}>
+                <a href="#" onClick={this.props.gotoDictionary.bind(null, this.props.navDictId)}>
+                    {this.props.navDictName}
+                </a>
+            </li>);
+            breadcrumbs.push(<li className="active" key={3}>New Entry</li>);
+            return breadcrumbs;
+        case 'TRAINING':
+            breadcrumbs.push(inactiveDictsLi);
+            breadcrumbs.push(<li key={2}>
+                <a href="#" onClick={this.props.gotoDictionary.bind(null, this.props.navDictId)}>
+                    {this.props.navDictName}
+                </a>
+            </li>);
+            breadcrumbs.push(<li className="active" key={3}>Training</li>);
+            return breadcrumbs;
+        default: 
+            breadcrumbs.push(<li className="active" key={5}>Error: unknown position</li>);
+            return breadcrumbs;
         }
     }
 
@@ -67,7 +67,7 @@ class Breadcrumbs extends React.Component {
                     {this.getBreadcrumbs()}
                 </ol>
             </div>
-        </div>
+        </div>;
     }
 }
 
@@ -77,6 +77,6 @@ Breadcrumbs.propTypes = {
     ,navSection: PropTypes.string.isRequired
     ,navDictId: PropTypes.string
     ,navDictName: PropTypes.string.isRequired
-}
+};
 
-export default Breadcrumbs
+export default Breadcrumbs;

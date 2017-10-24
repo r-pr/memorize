@@ -1,14 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class NewEntry extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {};
         props.entryKeys.forEach(keyName=>{
-            this.state[keyName] = ''
-        })
+            this.state[keyName] = '';
+        });
     }
 
     handleTextChange(keyName, value){
@@ -26,19 +26,19 @@ class NewEntry extends React.Component {
 
     render() {
         return <div className="col-sm-12">
-                {this.props.entryKeys.map((keyName, index)=>{
-                    return <div className="form-group" key={index}>
-                        <label htmlFor="exampleInputEmail1">{keyName}</label>
-                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder={keyName}
-                            value={
-                                this.state[keyName]
-                            }
-                            onChange={e=>{
-                                this.handleTextChange(keyName, e.target.value)
-                            }}
-                        />
-                    </div>
-                })
+            {this.props.entryKeys.map((keyName, index)=>{
+                return <div className="form-group" key={index}>
+                    <label htmlFor="exampleInputEmail1">{keyName}</label>
+                    <input type="text" className="form-control" id="exampleInputEmail1" placeholder={keyName}
+                        value={
+                            this.state[keyName]
+                        }
+                        onChange={e=>{
+                            this.handleTextChange(keyName, e.target.value);
+                        }}
+                    />
+                </div>;
+            })
             }
             <button className="btn btn-default" 
                 disabled={this.areAllFieldsEmpty()}
@@ -49,7 +49,7 @@ class NewEntry extends React.Component {
                         entry[keyName] = this.state[keyName];
                     });
                     this.props.onAddEntry(this.props.dictId, entry);
-            }}>
+                }}>
                 Add entry
             </button>
             <button className="btn btn-default"
@@ -72,7 +72,7 @@ class NewEntry extends React.Component {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>;
     }
 }
 
@@ -84,6 +84,6 @@ NewEntry.propTypes = {
     onAddEntry: PropTypes.func.isRequired,
     onErrorSeen: PropTypes.func.isRequired,
     errorMsg: PropTypes.string
-}
+};
 
-export default NewEntry
+export default NewEntry;

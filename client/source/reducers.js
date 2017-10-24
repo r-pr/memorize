@@ -233,19 +233,17 @@ function dictionaries(state = initialState, action) {
         var toBeUpdated = {
             showHint: false
         };
-        if (typeof state.training === 'undefined' || typeof state.training.entryId === 'undefined'){
-            let dicts = state.dictionaries;
-            let dictId = state.navigation.dictId;
-            let minCounter = Infinity;
-            let id = '';
-            dicts[dictId].entries.forEach(entry=>{
-                if (entry.counter < minCounter){
-                    minCounter = entry.counter;
-                    id = entry._id;
-                }
-            });
-            toBeUpdated.entryId = id;
-        }
+        let dicts = state.dictionaries;
+        let dictId = state.navigation.dictId;
+        let minCounter = Infinity;
+        let id = '';
+        dicts[dictId].entries.forEach(entry=>{
+            if (entry.counter < minCounter || typeof entry.counter === 'undefined'){
+                minCounter = entry.counter;
+                id = entry._id;
+            }
+        });
+        toBeUpdated.entryId = id;
         return Object.assign({}, state, {
             training: state.training ?  Object.assign({}, state.training, toBeUpdated) :
                 toBeUpdated

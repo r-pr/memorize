@@ -70,7 +70,11 @@ export default class EntriesListRow extends React.Component {
             }
             <td>
                 <button className="btn btn-default" 
-                    onClick={this.props.onDelete.bind(null, entry._id)}
+                    onClick={()=>{
+                        if (confirm('Do you really want to delete this entry?')){
+                            this.props.onDelete(entry._id);
+                        }
+                    }}
                     style={{marginLeft: '1em', float: 'right'}}
                 >
                     <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>

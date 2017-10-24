@@ -35,7 +35,11 @@ class Dictionary extends React.Component {
                 </div>
                 <div className="col-xs-6 col-sm-4" style={{marginBottom: '1em'}}>
                     <button className="btn btn-danger btn-block"
-                        onClick={this.props.onDeleteDictionary.bind(null, this.props.dictId)}
+                        onClick={()=>{
+                            if (confirm('Do you really want to delete this dictionary?')){
+                                this.props.onDeleteDictionary(this.props.dictId);
+                            }  
+                        }}
                     >
                         Delete dictionary
                     </button>

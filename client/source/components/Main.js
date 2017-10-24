@@ -57,40 +57,40 @@ export default class Main extends React.Component {
     }
     render(){
         return <div className="row">
-            <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4"
-            	style={{marginBottom: '1em'}}
+            <div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4"
+                style={{marginBottom: '1em', padding: 0}}
             >
-            <h4>
-                Welcome to Mnesis, the service that can help you memorize foreing words and other things.
-            </h4>
-            <h4>
-            	<a href="about.html" target="blank">Learn more</a>.
-            </h4>
-                
+                <h4>
+                    Welcome to Mnesis, the service that can help you memorize foreing words and other things.
+                </h4>
+                <h4>
+                    <a href="about.html" target="blank">Learn more</a>.
+                </h4>
+
             </div>
-        	<div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+            <div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
 
-        		<div className="row">
-        			<input type="text" className="form-control" placeholder="Username"
+                <div className="row">
+                    <input type="text" className="form-control" placeholder="Username"
                         value={this.state.username}
-                        onChange={(e)=>{ this.setState({username: e.target.value}) }}
+                        onChange={(e)=>{ this.setState({username: e.target.value}); }}
                     />
-        		</div>
+                </div>
 
-        		<div className="row" style={{marginTop: '0.5em'}}>
-        			<input type="password" className="form-control" placeholder="Password"
+                <div className="row" style={{marginTop: '0.5em'}}>
+                    <input type="password" className="form-control" placeholder="Password"
                         value={this.state.password}
-                        onChange={(e)=>{ this.setState({password: e.target.value })}}
+                        onChange={(e)=>{ this.setState({password: e.target.value });}}
                     />
-        		</div>
+                </div>
 
                 <div className="row" style={{
                     marginTop: '0.5em',
                     display: this.state.signupWanted ? 'block' : 'none'
                 }}>
-                	<input type="password" className="form-control" placeholder="Confirm password"
+                    <input type="password" className="form-control" placeholder="Confirm password"
                         value={this.state.passwordConf}
-                        onChange={(e)=>{ this.setState({passwordConf: e.target.value}) }}
+                        onChange={(e)=>{ this.setState({passwordConf: e.target.value}); }}
                     />
                 </div>
 
@@ -104,7 +104,7 @@ export default class Main extends React.Component {
                         <button type="button" className="close" data-dismiss="alert" 
                             aria-label="Close"
                             onClick={()=>{
-                                this.setState({errorMsg: ''})
+                                this.setState({errorMsg: ''});
                             }}
                         >
                             <span aria-hidden="true">&times;</span>
@@ -113,46 +113,46 @@ export default class Main extends React.Component {
                     </div>
                 </div>
 
-        		<div className="row" style={{
+                <div className="row" style={{
                     marginTop: '0.5em',
                     display: this.state.signupWanted ? 'none' : 'block'
                 }}>
-        				<button className="btn btn-success btn-block"
-                            disabled={
-                                !(this.state.username.length > 0 &&
-                                  this.state.password.length > 0) || 
-                                  this.state.waitingServerResp
-                            }
-                            onClick={this.onLogInClick.bind(this)}
-                        >
-        					Log in
-        				</button>
-        		</div>
+                    <button className="btn btn-success btn-block"
+                        disabled={
+                            !(this.state.username.length > 0 &&
+                            this.state.password.length > 0) || 
+                            this.state.waitingServerResp
+                        }
+                        onClick={this.onLogInClick.bind(this)}
+                    >
+                        Log in
+                    </button>
+                </div>
 
                 <div className="row" style={{marginTop: '0.5em'}}>
-                	    <button 
-                            className={
-                                this.state.signupWanted ? 'btn btn-primary btn-block' 
-                                    : 'btn btn-info btn-block'
-                            }
-                            disabled={
-                                !(this.state.username.length > 0 &&
-                                  this.state.password.length > 0) ||
-                                  this.state.waitingServerResp
-                            }
-                            onClick={this.onSignupClick.bind(this)}
-                        >
-                            Sign up
-                        </button>
-        		</div>
-        		<div className="row" style={{
-        			marginTop: '0.5em',
-        			display: this.state.waitingServerResp ? 'block' : 'none'
-        		}}>
-        			 <p>Please wait...</p>
-        		</div>
-        </div>
-        </div>
+                    <button 
+                        className={
+                            this.state.signupWanted ? 'btn btn-primary btn-block' 
+                                : 'btn btn-info btn-block'
+                        }
+                        disabled={
+                            !(this.state.username.length > 0 &&
+                            this.state.password.length > 0) ||
+                            this.state.waitingServerResp
+                        }
+                        onClick={this.onSignupClick.bind(this)}
+                    >
+                        Sign up
+                    </button>
+                </div>
+                <div className="row" style={{
+                    marginTop: '0.5em',
+                    display: this.state.waitingServerResp ? 'block' : 'none'
+                }}>
+                    <p>Please wait...</p>
+                </div>
+            </div>
+        </div>;
     }
 }
 

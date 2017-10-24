@@ -20,7 +20,6 @@ class NewDictionary extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('nextError:', nextProps.errorMsg)
         if (nextProps.errorMsg !== this.state.errorMsg){
             this.setState({errorMsg: nextProps.errorMsg });
         }
@@ -31,8 +30,8 @@ class NewDictionary extends React.Component {
     }
 
     /**
-         * Text change in the input of key name in the "Keys" panel.
-         */
+     * Text change in the input of key name in the "Keys" panel.
+     */
     onKeyNameChange(keyIndex, newText) {
         let keys = this.state.keys.slice();
         keys[keyIndex].name = newText;
@@ -40,8 +39,8 @@ class NewDictionary extends React.Component {
     }
 
     /**
-         * Click on cross in the "Keys" panel.
-         */
+     * Click on cross in the "Keys" panel.
+     */
     onRemoveKeyClick(keyIndex) {
         let keys = this.state.keys.filter((k, index) => {
             return (keyIndex == index) ? false : true;
@@ -50,8 +49,8 @@ class NewDictionary extends React.Component {
     }
 
     /**
-         * Click on "Add" button in "Keys" panel.
-         */
+     * Click on "Add" button in "Keys" panel.
+     */
     onAddKeyClick() {
         let keys = this.state.keys.slice();
         keys.push({
@@ -62,8 +61,8 @@ class NewDictionary extends React.Component {
     }
 
     /**
-         * Mark key with a given name to be shown in training.
-         */
+     * Mark key with a given name to be shown in training.
+     */
     assignKey(keyName, role) {
         if (role !== 'training' && role !== 'hint')
             throw new Error('unknown role');

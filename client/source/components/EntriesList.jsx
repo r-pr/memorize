@@ -19,39 +19,39 @@ class EntriesList extends React.Component {
             overflowY: 'scroll'
         }}>
             <table className="table">
-            <thead>
-                <tr>
+                <thead>
+                    <tr>
+                        {
+                            this.props.entryKeys.map((entryKey, index)=>{
+                                return <th key={index}
+                                    style={{
+                                        width: trWidth + '%'
+                                    }}
+                                >
+                                    {entryKey}
+                                </th>;
+                            })
+                        }
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
                     {
-                        this.props.entryKeys.map((entryKey, index)=>{
-                            return <th key={index}
-                                style={{
-                                    width: trWidth + '%'
-                                }}
-                            >
-                                {entryKey}
-                            </th>;
+                        this.props.entries.map((entry, index)=>{
+                            return <EntriesListRow
+                                key={index}
+                                entry={entry}
+                                entryKeys={this.props.entryKeys}
+                                onEdit={this.props.onEditEntry}
+                                onUpdate={this.props.onUpdateEntry}
+                                onDelete={this.props.onDeleteEntry}
+                            />; 
                         })
+
                     }
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {
-                    this.props.entries.map((entry, index)=>{
-                        return <EntriesListRow
-                            key={index}
-                            entry={entry}
-                            entryKeys={this.props.entryKeys}
-                            onEdit={this.props.onEditEntry}
-                            onUpdate={this.props.onUpdateEntry}
-                            onDelete={this.props.onDeleteEntry}
-                        />; 
-                    })
-
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         </div>;
     }
 }

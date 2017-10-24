@@ -13,7 +13,6 @@ import {
 import fetch from 'isomorphic-fetch';
 
 const BASE_URL = window.location.href;
-console.log(BASE_URL);
 //const BASE_URL = 'http://mnezis.herokuapp.com/';
 
 var token = '';
@@ -29,16 +28,12 @@ export function login(userName, password) {
             body: 'username=' + encodeURIComponent(userName) + '&password=' + encodeURIComponent(password)
         })
             .then(response => {
-                console.log('login: resp status: ' + response.status);
                 response.json()
                     .then(json => {
-                        console.log(json);
                         if (response.status !== 200) {
                             return dispatch(loginErr(json.error));
                         } else {
                             token = json.token;
-                            console.log('gona fetch');
-
                             fetch(BASE_URL + 'dictionaries', {
                                 method: 'GET',
                                 headers: {
@@ -46,10 +41,8 @@ export function login(userName, password) {
                                 }
                             })
                                 .then(response => {
-                                    console.log('get dictionaries: resp status: ' + response.status);
                                     response.json()
                                         .then(json => {
-                                            console.log(json);
                                             if (response.status !== 200) {
                                                 return dispatch(error(json.error));
                                             } else {
@@ -102,14 +95,11 @@ export function signup(userName, password) {
             body: 'username=' + encodeURIComponent(userName) + '&password=' + encodeURIComponent(password)
         })
             .then(response => {
-                console.log('login: resp status: ' + response.status);
                 response.json()
                     .then(json => {
-                        console.log(json);
                         if (response.status !== 200) {
                             return dispatch(loginErr(json.error));
                         } else {
-                            console.log('signedUp, now loginning...');
                             dispatch(login(userName, password));
                         }
                     })
@@ -134,17 +124,15 @@ export function addDictionary(dict) {
                 'Authorization': token
             },
             body: 'ent_all=' + encodeURIComponent(dict.entryKeys.all.join(',')) +
-'&ent_training=' + encodeURIComponent(dict.entryKeys.training.join(',')) +
-'&ent_hint=' + encodeURIComponent(dict.entryKeys.hint.join(','))
+                '&ent_training=' + encodeURIComponent(dict.entryKeys.training.join(',')) +
+                '&ent_hint=' + encodeURIComponent(dict.entryKeys.hint.join(','))
         })
             .then(response => {
-                console.log('add dict: resp status: ' + response.status);
                 if (response.status === 500) {
                     return dispatch(error('500 - Internal Server Error'));
                 }
                 response.json()
                     .then(json => {
-                        console.log(json);
                         if (response.status !== 200) {
                             return dispatch(error(json.error));
                         } else {
@@ -175,7 +163,6 @@ export function addEntry(dictId, newEntry){
         }
         body += `${key}=${encodeURIComponent(newEntry[key])}`;
     });
-    console.log(body);
 
     return dispatch=>{
         fetch(`${BASE_URL}dictionaries/${dictId}/entries`, {
@@ -187,10 +174,8 @@ export function addEntry(dictId, newEntry){
             body
         })
             .then(response => {
-                console.log('addEntry: resp status: ' + response.status);
                 response.json()
                     .then(json => {
-                        console.log(json);
                         if (response.status !== 200) {
                             return dispatch(error(json.error));
                         } else {
@@ -222,7 +207,6 @@ export function updateEntry(dictId, entry){
         }
         body += `${key}=${encodeURIComponent(entry[key])}`;
     });
-    console.log(body);
     return dispatch=>{
         fetch(`${BASE_URL}dictionaries/${dictId}/entries/${entry._id}`, {
             method: 'PUT',
@@ -233,10 +217,8 @@ export function updateEntry(dictId, entry){
             body
         })
             .then(response => {
-                console.log('update: resp status: ' + response.status);
                 response.json()
                     .then(json => {
-                        console.log(json);
                         if (response.status !== 200) {
                             return console.warn(json.error);
                         } else {
@@ -264,10 +246,8 @@ export function fetchEntriesAndNavigate(dictId) {
             }
         })
             .then(response => {
-                console.log('fetchEntries: resp status: ' + response.status);
                 response.json()
                     .then(json => {
-                        console.log(json);
                         if (response.status !== 200) {
                             return dispatch(error(json.error));
                         } else {
@@ -301,10 +281,8 @@ export function deleteDictionary(dictId){
             }
         })
             .then(response => {
-                console.log('delete: resp status: ' + response.status);
                 response.json()
                     .then(json => {
-                        console.log(json);
                         if (response.status !== 200) {
                             console.warn(json.error);
                             return dispatch(navDictionaries());
@@ -337,10 +315,8 @@ export function deleteEntry(dictId, entryId){
             }
         })
             .then(response => {
-                console.log('deleteEntry: resp status: ' + response.status);
                 response.json()
                     .then(json => {
-                        console.log(json);
                         if (response.status !== 200) {
                             return console.warn(json.error);
                         } else {

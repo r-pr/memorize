@@ -11,17 +11,19 @@ export default class Header extends React.Component {
 					&nbsp;Mnesis
             </span>
             <span style={{
-            	float: 'right', 
-            	marginTop: '0.3em',
-            	display: this.props.userName ? 'inline' : 'none'
+                float: 'right', 
+                marginTop: '0.3em',
+                display: this.props.userName ? 'inline' : 'none'
             }}
             >
                 <strong>Logged in as:&nbsp;</strong>
                 {this.props.userName} (
-                	<a href="" onClick={e=>{
-                        e.preventDefault();
-                        this.props.onLogout();
-                    }}>Logout</a>
+                <a href="" onClick={e=>{
+                    e.preventDefault();
+                    this.props.onLogout();
+                }}>
+                    Logout
+                </a>
                 )
             </span>
         </div>;
