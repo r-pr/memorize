@@ -45,9 +45,11 @@ app = Flask(__name__, static_folder='public', static_url_path='')
 if not os.environ.get("MONGO_URI"):
     raise RuntimeError("MONGO_URI env variable not set")
 
-username_re = re.compile("^[A-Za-z][A-Za-z_\-\d]+$")
+jwt_secret = os.environ.get("JWT_SECRET")
+if not jwt_secret:
+    raise RuntimeError("JWT_SECRET env variable not set");
 
-jwt_secret = "foo_bar" #create_salt()
+username_re = re.compile("^[A-Za-z][A-Za-z_\-\d]+$")
 
 mongo_client = MongoClient(os.environ.get("MONGO_URI"))
 db = mongo_client.mnesis
