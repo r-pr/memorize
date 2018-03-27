@@ -138,10 +138,10 @@ class App extends React.Component {
         
         // find next entry to display, increment counter in current entry
 
-        //let len
-        //if dict len is gte 10 set len to 10
-        //otherwise set len to dict len
-        //get from dictionary 10 entries with lowest counters
+        //let len = 20 % of dictionary length
+        // if len < 10
+        //   len = dictionary length
+        //get from dictionary len entries with lowest counters
         //select random from that set
         //update dictionaries
         if (!this.props.navigation.dictId){
@@ -159,7 +159,10 @@ class App extends React.Component {
                 break;
             }
         }
-        let len = dictEntries.length >= 10 ? 10 : dictEntries.length;
+        let len = Math.ceil(dictEntries.length * 0.2);
+        if (len < 10){
+            len = dictEntries.length;
+        }
         let entries = dictEntries.slice().sort((a, b)=>{
             return a.counter > b.counter ? 1 : b.counter < a.counter ? -1 : 0; 
         }).slice(0, len);
