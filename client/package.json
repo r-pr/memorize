@@ -1,6 +1,6 @@
 {
   "name": "mnesis",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A memory training service",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -134,10 +134,14 @@ class App extends React.Component {
         dispatch(navNewDictionary());
     }
 
-    showNextEntry(entryId, shouldIncrement){
-        
-        // find next entry to display, increment counter in current entry
+    getNextEntryRandomly() {
+        let dictId = this.props.navigation.dictId;
+        let dictEntries = this.props.dictionaries[dictId].entries;
+        let len = dictEntries.length;
+        return dictEntries[Math.floor(Math.random() * len)];
+    }
 
+    getNextEntryWithLowCounter(currentEntryId) {
         //let len = 20 % of dictionary length
         // if len < 10
         //   len = dictionary length
@@ -152,13 +156,6 @@ class App extends React.Component {
             throw new Error('dict ' + dictId + ' not found in dictionaries');
         }
         let dictEntries = this.props.dictionaries[dictId].entries;
-        let currentEntry = null;
-        for (let i = 0; i < dictEntries.length; i++){
-            if (dictEntries[i]._id === entryId){
-                currentEntry = JSON.parse(JSON.stringify(dictEntries[i]));
-                break;
-            }
-        }
         let len = Math.ceil(dictEntries.length * 0.2);
         if (len < 10){
             len = dictEntries.length;
@@ -169,9 +166,29 @@ class App extends React.Component {
         let selectedEntry = entries[Math.floor(Math.random() * len)];
 
         //ensure that next entry is different from pervious
-        while (len > 1  && selectedEntry._id === entryId){
+        while (len > 1  && selectedEntry._id === currentEntryId){
             selectedEntry = entries[Math.floor(Math.random() * len)];
         }
+        return selectedEntry;
+    }
+
+    getEntryById(entryId) {
+        let dictEntries = this.props.dictionaries[this.props.navigation.dictId].entries;
+        let result = null;
+        for (let i = 0; i < dictEntries.length; i++){
+            if (dictEntries[i]._id === entryId){
+                result = JSON.parse(JSON.stringify(dictEntries[i]));
+                break;
+            }
+        }
+        return result;
+    }
+
+    showNextEntry(entryId, shouldIncrement){
+        let currentEntry = this.getEntryById(entryId);
+        let selectedEntry = Math.random() < 0.7 ?
+            this.getNextEntryWithLowCounter(entryId) :
+            this.getNextEntryRandomly();
 
         //increment counter in currentEntry and show next
         this.props.dispatch(trainingNextEntry(entryId, selectedEntry._id, shouldIncrement));
@@ -183,6 +200,7 @@ class App extends React.Component {
 
         //increment counter remotely if withoutHint
         if (shouldIncrement){
+            let dictId = this.props.navigation.dictId;
             this.props.dispatch(updateEntry(dictId, {_id: currentEntry._id, counter: currentEntry.counter }));
         }
         
